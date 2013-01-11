@@ -4,8 +4,8 @@ require File.expand_path('../lib/redeye/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Matt Chun-Lum"]
   gem.email         = ["mchunlum@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{This provides an interface with a RedEye WiFi IR Blaster}
+  gem.summary       = %q{This provides an interface with a RedEye Wifi IR Blaster}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
