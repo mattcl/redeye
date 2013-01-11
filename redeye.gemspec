@@ -14,4 +14,12 @@ Gem::Specification.new do |gem|
   gem.name          = "redeye"
   gem.require_paths = ["lib"]
   gem.version       = Redeye::VERSION
+
+  # required gems
+  gem.add_dependency 'nokogiri'
+
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'guard'
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'fakeweb'
 end
