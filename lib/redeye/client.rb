@@ -1,5 +1,6 @@
 require 'net/http'
 require 'nokogiri'
+require 'open-uri'
 
 module Redeye
   class Client
