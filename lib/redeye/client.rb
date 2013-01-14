@@ -1,30 +1,50 @@
 require 'net/http'
 require 'nokogiri'
-require 'open-uri'
+
+require 'redeye/requestor'
 
 module Redeye
   class Client
-    attr_accessor :base_address, :base_uri
-    attr_reader :serial_number, :hardware_type, :name, :description
+    include Redeye::Requestor
 
-    def address(addr)
-      @base_address = addr
-      @base_uri = "http://#{base_address}:8080/redeye/"
+    attr_reader :uri, :serial_number, :hardware_type, :name, :description
+
+    def initialize(args={})
+      @name          = args['name']
+      @description   = args['description']
+      @hardware_type = args['hardware_type']
+      @serial_number = args['serial_number']
+      @uri           = args['uri']
     end
 
-    def info
-      xml = Nokogiri::XML(open(base_uri))
-      attrs = xml.children.first.attributes
+    def rooms
+      return @rooms unless @rooms.nil?
+      xml = request(URI(uri))
+      @rooms = xml.xpath('//rooms//room').collect { |room| Room.new(room) }
     end
 
     def devices
-      # TODO: eventually support redeye pro devices
-      xml = Nokogiri::XML(open("#{base_uri}/rooms/0/devices/"))
+
+    end
+
+    def reset
+      @rooms = nil
     end
 
   end
 
   class Room
+    attr_reader :id, :name, :description
+
+    def initialize(args={})
+      @id          = args['id']
+      @name        = args['name']
+      @description = args['description']
+    end
+
+    def devices
+      xml = Nokogiri::XML(open("#{base_uri}/rooms/"))
+    end
   end
 
   class Device
